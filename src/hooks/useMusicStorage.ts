@@ -29,6 +29,30 @@ export const useMusicStorage = () => {
     setTracksState(newTracks);
   };
 
+  const deleteTrack = (track: Track) => {
+    // Remove from tracks
+    const newTracks = tracks.filter(t => t.id !== track.id);
+    setTracksState(newTracks);
+    
+    // Remove from liked
+    if (likedTrackIds.includes(track.id)) {
+      const newLikedIds = likedTrackIds.filter(id => id !== track.id);
+      setLikedTrackIds(newLikedIds);
+      localStorage.setItem(STORAGE_KEYS.LIKED, JSON.stringify(newLikedIds));
+    }
+    
+    // Remove from playlists
+    const updatedPlaylists = playlists.map(playlist => ({
+      ...playlist,
+      trackIds: playlist.trackIds.filter(id => id !== track.id)
+    }));
+    setPlaylistsState(updatedPlaylists);
+    localStorage.setItem(STORAGE_KEYS.PLAYLISTS, JSON.stringify(updatedPlaylists));
+    
+    // Clean up object URL to prevent memory leaks
+    URL.revokeObjectURL(track.url);
+  };
+
   const setPlaylists = (newPlaylists: Playlist[]) => {
     setPlaylistsState(newPlaylists);
     localStorage.setItem(STORAGE_KEYS.PLAYLISTS, JSON.stringify(newPlaylists));
@@ -48,6 +72,7 @@ export const useMusicStorage = () => {
   return {
     tracks,
     setTracks,
+    deleteTrack,
     playlists,
     setPlaylists,
     likedTracks,

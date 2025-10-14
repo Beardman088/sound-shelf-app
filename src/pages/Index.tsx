@@ -9,7 +9,7 @@ import { Track, Playlist } from "@/types/music";
 import { useMusicStorage } from "@/hooks/useMusicStorage";
 
 const Index = () => {
-  const { tracks, setTracks, playlists, setPlaylists, likedTracks, toggleLike } = useMusicStorage();
+  const { tracks, setTracks, deleteTrack, playlists, setPlaylists, likedTracks, toggleLike } = useMusicStorage();
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const [currentPlaylist, setCurrentPlaylist] = useState<Track[]>([]);
 
@@ -28,6 +28,14 @@ const Index = () => {
 
   const handleCreatePlaylist = (playlist: Playlist) => {
     setPlaylists([...playlists, playlist]);
+  };
+
+  const handleDeleteTrack = (track: Track) => {
+    deleteTrack(track);
+    // If currently playing track was deleted, stop playback
+    if (currentTrack?.id === track.id) {
+      setCurrentTrack(null);
+    }
   };
 
   const handleDeletePlaylist = (playlistId: string) => {
@@ -68,6 +76,7 @@ const Index = () => {
                 tracks={tracks} 
                 onPlayTrack={handlePlayTrack}
                 onToggleLike={toggleLike}
+                onDeleteTrack={handleDeleteTrack}
                 likedTrackIds={likedTracks.map(t => t.id)}
               />
             </TabsContent>
@@ -77,6 +86,7 @@ const Index = () => {
                 tracks={likedTracks} 
                 onPlayTrack={handlePlayTrack}
                 onToggleLike={toggleLike}
+                onDeleteTrack={handleDeleteTrack}
                 likedTrackIds={likedTracks.map(t => t.id)}
               />
             </TabsContent>

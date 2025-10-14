@@ -1,16 +1,17 @@
 import { Track } from "@/types/music";
 import { Button } from "@/components/ui/button";
-import { Play, Heart } from "lucide-react";
+import { Play, Heart, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TrackListProps {
   tracks: Track[];
   onPlayTrack: (track: Track) => void;
   onToggleLike: (track: Track) => void;
+  onDeleteTrack?: (track: Track) => void;
   likedTrackIds: string[];
 }
 
-export const TrackList = ({ tracks, onPlayTrack, onToggleLike, likedTrackIds }: TrackListProps) => {
+export const TrackList = ({ tracks, onPlayTrack, onToggleLike, onDeleteTrack, likedTrackIds }: TrackListProps) => {
   if (tracks.length === 0) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
@@ -55,6 +56,17 @@ export const TrackList = ({ tracks, onPlayTrack, onToggleLike, likedTrackIds }: 
               )}
             />
           </Button>
+
+          {onDeleteTrack && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => onDeleteTrack(track)}
+              className="shrink-0"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       ))}
     </div>
