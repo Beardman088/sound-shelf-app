@@ -113,7 +113,7 @@ export const MusicPlayer = ({ track, playlist, onTrackChange, onToggleLike, isLi
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t-4 border-black bg-white p-6 shadow-[0px_-8px_0px_0px_rgba(0,0,0,0.05)]">
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t-4 border-black bg-white p-4 shadow-[0px_-8px_0px_0px_rgba(0,0,0,0.05)] md:p-6 pb-safe">
       <audio
         ref={audioRef}
         onTimeUpdate={handleTimeUpdate}
@@ -121,26 +121,27 @@ export const MusicPlayer = ({ track, playlist, onTrackChange, onToggleLike, isLi
         onEnded={handleEnded}
       />
 
-      <div className="container mx-auto">
+      <div className="container mx-auto max-w-screen-lg">
         <div className="mb-2 flex items-center justify-between">
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-xl font-black uppercase tracking-tight">{track.name}</p>
+          <div className="min-w-0 flex-1 pr-4">
+            <p className="truncate text-base font-black uppercase tracking-tight md:text-xl">{track.name}</p>
             {track.artist && (
-              <p className="truncate text-base font-bold text-black/60">{track.artist}</p>
+              <p className="truncate text-sm font-bold text-black/60 md:text-base">{track.artist}</p>
             )}
           </div>
           <Button
             size="icon"
             variant="ghost"
             onClick={() => onToggleLike(track)}
+            className="shrink-0"
           >
             <Heart
-              className={cn("h-5 w-5", isLiked && "fill-red-500 text-red-500")}
+              className={cn("h-5 w-5 md:h-6 md:w-6", isLiked && "fill-red-500 text-red-500")}
             />
           </Button>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2 md:mb-4">
           <Slider
             value={[currentTime]}
             max={duration || 100}
@@ -148,36 +149,36 @@ export const MusicPlayer = ({ track, playlist, onTrackChange, onToggleLike, isLi
             onValueChange={handleSeek}
             className="w-full cursor-pointer"
           />
-          <div className="mt-2 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-black/40">
+          <div className="mt-1 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-black/40 md:mt-2">
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-2 md:gap-4">
           <Button
             size="icon"
             variant="ghost"
             onClick={() => setShuffleMode(!shuffleMode)}
             className={cn("hover:bg-gray-100", shuffleMode && "text-black font-bold")}
           >
-            <Shuffle className={cn("h-4 w-4", shuffleMode && "fill-current")} />
+            <Shuffle className={cn("h-4 w-4 md:h-5 md:w-5", shuffleMode && "fill-current")} />
           </Button>
 
           <Button size="icon" variant="ghost" onClick={handlePrevious}>
-            <SkipBack className="h-5 w-5" />
+            <SkipBack className="h-5 w-5 md:h-6 md:w-6" />
           </Button>
 
-          <Button size="icon" onClick={togglePlayPause} className="h-16 w-16 rounded-full border-4 border-black bg-black text-white shadow-[4px_4px_0px_0px_rgba(150,150,150,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
+          <Button size="icon" onClick={togglePlayPause} className="h-12 w-12 rounded-full border-4 border-black bg-black text-white shadow-[2px_2px_0px_0px_rgba(150,150,150,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all md:h-16 md:w-16 md:shadow-[4px_4px_0px_0px_rgba(150,150,150,1)] md:hover:translate-x-[4px] md:hover:translate-y-[4px]">
             {isPlaying ? (
-              <Pause className="h-8 w-8 fill-current" />
+              <Pause className="h-6 w-6 fill-current md:h-8 md:w-8" />
             ) : (
-              <Play className="h-8 w-8 fill-current pl-1" />
+              <Play className="h-6 w-6 fill-current pl-1 md:h-8 md:w-8" />
             )}
           </Button>
 
           <Button size="icon" variant="ghost" onClick={handleNext}>
-            <SkipForward className="h-5 w-5" />
+            <SkipForward className="h-5 w-5 md:h-6 md:w-6" />
           </Button>
 
           <Button
@@ -187,9 +188,9 @@ export const MusicPlayer = ({ track, playlist, onTrackChange, onToggleLike, isLi
             className={cn(repeatMode !== 'off' && "text-primary")}
           >
             {repeatMode === 'one' ? (
-              <Repeat1 className="h-4 w-4" />
+              <Repeat1 className="h-4 w-4 md:h-5 md:w-5" />
             ) : (
-              <Repeat className="h-4 w-4" />
+              <Repeat className="h-4 w-4 md:h-5 md:w-5" />
             )}
           </Button>
         </div>

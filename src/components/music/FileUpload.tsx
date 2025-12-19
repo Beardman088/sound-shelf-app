@@ -85,17 +85,17 @@ export const FileUpload = ({ onFilesSelected, compact }: FileUploadProps) => {
   }
 
   return (
-    <div className="group relative rounded-xl border-4 border-black bg-white p-16 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
-      <div className="mb-6 flex justify-center">
-        <div className="rounded-full border-4 border-black bg-white p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:scale-110 group-hover:rotate-12">
-          <Upload className="h-10 w-10 text-black stroke-[3]" />
+    <div className="group relative rounded-xl border-4 border-black bg-white p-6 md:p-16 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+      <div className="mb-4 md:mb-6 flex justify-center">
+        <div className="rounded-full border-4 border-black bg-white p-4 md:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:scale-110 group-hover:rotate-12">
+          <Upload className="h-8 w-8 md:h-10 md:w-10 text-black stroke-[3]" />
         </div>
       </div>
-      <h3 className="mt-4 text-4xl font-black uppercase tracking-tighter">Import Music</h3>
-      <p className="mt-4 text-lg font-medium text-black/60 max-w-md mx-auto leading-relaxed">
+      <h3 className="mt-2 md:mt-4 text-2xl md:text-4xl font-black uppercase tracking-tighter">Import Music</h3>
+      <p className="mt-2 md:mt-4 text-base md:text-lg font-medium text-black/60 max-w-md mx-auto leading-relaxed">
         Drop your favorite local tracks here to start building your personal sound shelf.
       </p>
-      <Button onClick={() => fileInputRef.current?.click()} className="mt-8 border-4 border-black bg-black text-white text-lg px-8 py-6 shadow-[6px_6px_0px_0px_rgba(150,150,150,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all rounded-xl font-black uppercase tracking-wider">
+      <Button onClick={() => fileInputRef.current?.click()} className="mt-6 md:mt-8 border-4 border-black bg-black text-white text-base md:text-lg px-6 py-4 md:px-8 md:py-6 shadow-[6px_6px_0px_0px_rgba(150,150,150,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all rounded-xl font-black uppercase tracking-wider">
         Select Audio Files
       </Button>
       <input

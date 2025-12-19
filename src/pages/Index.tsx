@@ -68,13 +68,13 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans">
-      <header className="sticky top-0 z-50 border-b-4 border-black bg-white px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="rounded-full border-2 border-black p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white">
-              <Music className="h-6 w-6 text-black" />
+      <header className="sticky top-0 z-50 border-b-4 border-black bg-white px-4 py-3 md:px-6 md:py-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="rounded-full border-2 border-black p-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white md:p-2">
+              <Music className="h-4 w-4 text-black md:h-6 md:w-6" />
             </div>
-            <h1 className="text-3xl font-black text-black tracking-tight uppercase">SoundShelf</h1>
+            <h1 className="text-xl font-black text-black tracking-tight uppercase md:text-3xl">SoundShelf</h1>
           </div>
           {tracks.length > 0 && (
             <FileUpload compact onFilesSelected={handleFilesSelected} />
