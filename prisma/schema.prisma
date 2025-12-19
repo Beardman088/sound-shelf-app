@@ -1,0 +1,76 @@
+// prisma/schema.prisma
+// Define your database models
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+model Audio {
+  id        String   @id @default(uuid())
+  name      String
+  artist    String?
+  album     String?
+  duration  Int?     // Duration in seconds
+  url       String   // URL to the audio file (Supabase Storage path)
+  filePath  String?  // Optional: original file path
+  fileSize  Int?     // File size in bytes
+  mimeType  String?  // Audio MIME type (e.g., audio/mpeg, audio/wav)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String   // The ID of the user who uploaded this track
+
+  // Relations
+  playlists     PlaylistTrack[]
+  likedByUsers  LikedTrack[]
+
+  @@index([name])
+  @@index([artist])
+  @@index([createdAt])
+}
+
+model Playlist {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tracks PlaylistTrack[]
+
+  @@index([name])
+  @@index([createdAt])
+}
+
+model PlaylistTrack {
+  id         String   @id @default(uuid())
+  playlistId String
+  audioId    String
+  order      Int      @default(0) // Order of track in playlist
+  addedAt    DateTime @default(now())
+
+  // Relations
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  audio    Audio   @relation(fields: [audioId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, audioId])
+  @@index([playlistId])
+  @@index([audioId])
+}
+
+model LikedTrack {
+  id        String   @id @default(uuid())
+  audioId   String
+  likedAt   DateTime @default(now())
+
+  // Relations
+  audio Audio @relation(fields: [audioId], references: [id], onDelete: Cascade)
+
+  @@unique([audioId])
+  @@index([audioId])
+  @@index([likedAt])
+}
+
